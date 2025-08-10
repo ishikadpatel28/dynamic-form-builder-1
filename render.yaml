@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: dynamic-form-builder
+    env: static
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: CI
+        value: false
+      - key: GENERATE_SOURCEMAP
+        value: false
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=4096
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
